@@ -9,7 +9,18 @@ class Auth extends CI_Controller
       $this->load->library('form_validation');
    }
 
+   public function goToDefaultPage() {
+      if ($this->session->userdata('role_id') == 1) {
+         redirect('admin');
+         } else if ($this->session->userdata('role_id') == 2) {
+         redirect('user');
+         } else {
+         // jika ada role_id yg lain maka tambahkan disini
+      }
+   }
+
    public function index(){
+   $this->goToDefaultPage();
 
    //form validasi
    $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email',[
@@ -34,6 +45,7 @@ class Auth extends CI_Controller
    }
 
    private function _login(){
+      $this->goToDefaultPage();
 
       $email = $this->input->post('email');
       $password = $this->input->post('password');
@@ -79,6 +91,7 @@ class Auth extends CI_Controller
 
    public function registrasi()
    {
+      $this->goToDefaultPage();
 
       //form validasi beserta rulesnya
       $this->form_validation->set_rules('nama', 'Name', 'required|trim', [
@@ -123,6 +136,7 @@ class Auth extends CI_Controller
 
    public function lupa_password()
    {
+      $this->goToDefaultPage();
       $data['title'] = 'Lupa Password';
       $this->load->view('templates/auth_header', $data);
       $this->load->view('auth/lupa_password');
@@ -135,5 +149,10 @@ class Auth extends CI_Controller
       $this->session->unset_userdata('role_id');
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Berhasil Keluar!</div>');
       redirect('auth');
+   }
+
+   public function blokir(){
+
+      $this->load->view('auth/blokir');
    }
 }
