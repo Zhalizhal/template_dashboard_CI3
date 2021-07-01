@@ -8,7 +8,7 @@
                         <div class="col-lg-12">
                     <?= $this->session->flashdata('message'); ?>
                     <h5>Role : <strong><?= $role['role'] ?></strong></h5>
-                           <table class="table table-hover">
+                           <table class="table table-hover" id="dataTable">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
